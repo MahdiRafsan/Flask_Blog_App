@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %} About Page {% endblock title %}
+{% block content %}
+<h1 class="display-6"> Authors </h1> 
+
+<!-- Display all blog authors -->
+{% for user in users.items %}
+    <div class="container col-md-8 mt-1" >
+        <div class="card">
+            <div class="card-body">
+                <div class="row g-0">
+                    <div class="col-md-2">
+                        <img src="{{ url_for('static', filename='profile_pics/' + user.image) }}" alt="Profile Picture" class="rounded-circle about-image"/>
+                    </div>
+                    <div class="col-md-10">
+                        <h2 class="mb-0 profile">
+                            <a href="{{ url_for('user.post_by_user', username=user.username)}}" class="link-secondary">{{ user.username }}</a></h2>
+                        <div class="small text-muted">{{ user.email }}</div>
+                        <div class="mt-2"> 
+                            <!-- Only show bio when user has one -->
+                            {% if user.about %}
+                                {{ user.about }}
+                            {% endif %}
+                        </div>                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<br/>
+
+<div class="align">
+
+    <!-- Pagination Links -->
+    {% for page_number in users.iter_pages(left_current=2, right_current=3) %}
+        {% if page_number %}
+            {% if users.page == page_number %}
+                <a href="{{ url_for('main.about', page=page_number) }}" class="btn btn-info">{{ page_number }}</a>
+            {% else %}
+                <a href="{{ url_for('main.about', page=page_number) }}" class="btn btn-outline-info">{{ page_number }}</a>
+            {% endif %}
+        {% else%}
+            ...
+        {% endif%}
+    {% endfor %}
+</div>
+<br/>
+{% endblock content %}

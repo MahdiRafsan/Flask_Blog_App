@@ -1,0 +1,47 @@
+.post-content{
+    white-space: pre-wrap;
+}
+
+.comment-image{
+    width: 30px; 
+    height: 30px;
+}
+
+.post-image{
+    width: 60px; 
+    height: 60px;
+}
+
+.account-image{
+    width: 150px;
+    height: 150px;
+}
+
+.about-image{
+    width: 120px;
+    height: 120px;
+}
+.link-secondary{
+    text-decoration: none;
+}
+
+h4 .link-secondary{
+    color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+.profile {
+    text-align: left;
+}
+
+.error{
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.align {
+    text-align: center;
+}

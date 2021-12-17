@@ -1,0 +1,8 @@
+flaskblog/
+app/database.db
+app/__pycache__
+app/auth/__pycache__
+app/error/__pycache__
+app/main/__pycache__
+app/post/__pycache__
+app/user/__pycache__

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %} Reset Password {% endblock title %}
+
+{% block content %}
+<br/>
+<div class="container col-md-4 col-md-offset-4">    
+    <form action="" method="post" class="form-group card p-3" novalidate> 
+        <fieldset>
+            <legend class="border-bottom pb-2 display-6" style="font-size: 39px" align="center">Reset Password</legend>
+            <br/>
+            <br/>
+            {{ form.hidden_tag() }}
+
+            <!-- Email -->
+            {{ form.email.label(class="form-label") }}
+            {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid", placeholder="email@email.com") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}    
+                        <span> {{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control", placeholder="email@email.com") }}
+            {% endif %}
+            <br/>
+        </fieldset>
+        {{ form.submit(class="btn btn-primary")}}
+{% endblock content %}

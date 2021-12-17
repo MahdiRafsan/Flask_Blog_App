@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %} Profile-{{ current_user.username }} {% endblock title %}
+{% block content %} 
+<div class="container col-md-8 mt-1" style="width:45%">
+    <div class="card p-4 pt-0">
+        <div class="card-body">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ image }}" alt="Profile Picture" class="rounded-circle account-image"/>
+                </div>
+                <div class="col-md-8">
+                    <h1 class="mb-0 profile">{{ current_user.username }}</h1>
+                    <div class="small text-muted">{{ current_user.email }}</div>
+                        {% if user == current_user %}
+                            {% if form.bio.data %}
+                                <p class="mt-2"> {{ form.bio.data }}</p> 
+                            {% endif %}
+                        {% endif %}                
+                </div>
+            </div>
+        </div>
+
+        <div>
+        <form action="" method="post" class="form-group" enctype="multipart/form-data" novalidate> 
+            <fieldset>
+                <h3 class="border-bottom pb-1">Update Account</h3>
+                
+                
+                {{ form.hidden_tag() }}
+
+                <!-- Username -->
+                {{ form.username.label(class="form-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control mb-1 is-invalid", placeholder="Username") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}    
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control mb-1", placeholder="Username") }}
+                {% endif %}
+                
+                <!-- Email -->
+                {{ form.email.label(class="form-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control mb-1 is-invalid", placeholder="email@email.com") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %} 
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control mb-1", placeholder="email@email.com") }}
+                {% endif %}
+                
+                <!-- Bio -->
+                {{ form.bio.label(class="form-label") }}
+                {% if form.bio.errors %}
+                    {{ form.bio(class="form-control mb-1 is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.bio.errors %} 
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.bio(class="form-control mb-1") }}
+                {% endif %}
+                
+
+                <!-- New Password -->
+                {{ form.new_password.label(class="form-label") }}
+                {% if form.new_password.errors %}
+                    {{ form.new_password(class="form-control mb-1 is-invalid") }}
+                    <div class="invalid-feedback">    
+                        {% for error in form.new_password.errors %}
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.new_password(class="form-control mb-1") }}
+                {% endif %}
+              
+
+                <!-- Confirm New Password -->
+                {{ form.confirm.label(class="form-label") }}
+                {% if form.confirm.errors %}
+                    {{ form.confirm(class="form-control mb-1 is-invalid") }}
+                    <div class="invalid-feedback">    
+                        {% for error in form.confirm.errors %}
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.confirm(class="form-control mb-1") }}
+                {% endif %}
+                
+                <!-- Profile Picture-->
+                {{ form.image.label(class="form-label") }}
+                {{ form.image(class="form-control")}}
+                {% if form.image.errors %}
+                    
+                        {% for error in form.image.errors %}    
+                            <span class="text-danger small"> {{ error }} </span><br/>
+                        {% endfor %}
+                    
+                {% endif %}
+            </fieldset>
+            {{ form.submit(class="btn btn-sm btn-outline-info mt-3") }} 
+        </form>
+    </div>
+    </div>
+</div>
+</br>
+{% endblock content%}

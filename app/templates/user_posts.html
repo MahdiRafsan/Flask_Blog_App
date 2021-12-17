@@ -1,0 +1,23 @@
+{% extends "all_posts.html" %}
+{% block title %} {{ username }}'s Posts {% endblock title %}
+
+{% block header %} Posts by {{ username }} {% endblock header %}
+
+{% block footer %}
+
+<!-- Pagination Links -->
+<div align="center">
+{% for page_number in posts.iter_pages(left_current=3, right_current=4) %}
+    {% if page_number %}
+        {% if posts.page == page_number %}
+            <a href="{{ url_for('user.post_by_user', username=username, page=page_number) }}" class="btn btn-info">{{ page_number }}</a>
+        {% else %}
+            <a href="{{ url_for('user.post_by_user', username=username, page=page_number) }}" class="btn btn-outline-info">{{ page_number }}</a>
+        {% endif %}
+    {% else%}
+        ...
+    {% endif%}
+{% endfor %}
+</div>
+<br/>
+{% endblock footer %}

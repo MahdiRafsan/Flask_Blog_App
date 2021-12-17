@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock title %}
+{% block content %}
+<div class="container col-md-8 mt-1">
+    <div class="card p-4">
+        <form action="" method="post" class="form-group" novalidate>
+            <fieldset>
+                <legend class="border-bottom pb-2"> {{ legend }} </legend>
+                {{ form.hidden_tag() }}
+
+                <!-- Post Title -->
+                {{ form.title.label(class="form-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control is-invalid", placeholder="Create your title...")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span> {{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control", placeholder="Create your title...") }}
+                {% endif %}
+                <br/>
+
+                <!-- Post Content -->
+                {{ form.content.label(class="form-label") }}
+                {% if form.content.errors %}
+                    {{ form.content(class="form-control is-invalid", rows="10", cols="10", placeholder="Write Something...")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.content.errors %}
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content(class="form-control", rows="10", cols="10", placeholder="Write Something...")}}
+                {% endif %}
+            </fieldset>
+            <br/>
+            <div align="center">
+            {{ form.post(class="btn btn-primary", value=button) }}
+            <a href="{{ url_for('main.home') }}"><button type="button" class="btn btn-secondary"> Back </button> </a> 
+            </div>
+        </form>
+    </div>
+</div> 
+{% endblock content %}

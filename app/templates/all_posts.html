@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %} All Posts {% endblock title %}
+{% block content %}
+
+<h1 class="display-6"> {% block header %} {% endblock header%}</h1>
+<div class="container col-md-10">
+
+    <!-- Display limited number of posts per page using Pagination object-->
+    {% for post in posts.items %}
+    <div class="card p-2">
+        <div class="card-header">
+            <div class="row">
+     
+                <!-- Display author image, author name and time of post creation -->
+                <div class="col-md-1 pe-0">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image) }}" class="rounded-circle post-image"/>
+                </div>
+                <div class="col-md-9 ps-0 card-title">
+                    <h4 class="dispay-6 m-0">
+                        <a href="{{ url_for('user.post_by_user', username=post.author.username)}}" class="link-secondary"> {{ post.author.username }} </a>
+                    </h4>
+                    <small class="text-muted"> Posted on {{ post.date.strftime("%b %d, %Y") }} at {{post.date.strftime("%H:%M:%S")}} </small>
+                </div>
+
+                <div class="col-md-1">
+                    {{ post.likes|length }}
+                    {% if current_user.id in post.likes|map(attribute="user_id")|list %}
+                        <a href="{{ url_for('post.like_post', post_id=post.id) }}"><i class="fas fa-thumbs-up"></i></a>
+                    {% else %}
+                        <a href="{{ url_for('post.like_post', post_id=post.id) }}"><i class="far fa-thumbs-up"></i></a>
+                    {% endif %}
+                </div>
+
+                <!-- Only show edit options if current user has created the posts -->
+                {% if post.author == current_user %}
+                <div class="col-md-1 button-group dropend ps-1">
+                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown"> Edit Post </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a href="{{ url_for('post.update_post', post_id = post.id) }}" class="dropdown-item"> Update Post </a></li>
+                        <li><a href="{{ url_for('post.delete_post', post_id = post.id) }}" class="dropdown-item"> Delete Post </a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Display post title and content -->
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title}}</h3>
+            <p class="card-text post-content" >{{ post.content }}</p>
+        </div>
+
+        <!-- Display comments -->
+        <div class="card-footer">
+
+            <!-- Create a collapsible comments section -->
+            <div class="collapse" id="comments-{{ post.id }}">
+                <div class="card">
+                    <div class="card-body" >
+
+                        <!-- Display comments -->
+                        {% for comment in post.comments %}
+                            <div class="row mb-2">
+                                
+                                <!-- Display image and username -->
+                                <div class="col-md-1">
+                                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image) }}" class="rounded-circle comment-image"/>
+                                    <a href="{{ url_for('user.post_by_user', username=comment.author.username) }}" class="link-secondary">{{ comment.author.username }} </a>:
+                                </div>
+
+                                <!-- Show comment -->
+                                <div class="col-md-7 overflow-auto p-0">
+                                     {{ comment.comment }}
+                                </div>
+
+                                <!-- Show date and time -->
+                                <div class="small text-muted col-md-3"> {{ comment.date.strftime("%b %d, %Y") }} at {{ comment.date.strftime("%H:%M:%S")}}</div>
+                                {% if comment.post.post_author == current_user.id or comment.author == current_user  %}
+                                
+                                <!-- Edit button -->
+                                <div class="col-md-1 p-0 button-group dropend ps-1">
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown"> Edit </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a href="{{ url_for('post.delete_comment', comment_id = comment.id) }}" class="dropdown-item"> Delete Comment </a></li>
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show comments if post has any -->
+            <p class="card-text">
+                {% if post.comments|length > 0%}
+                    <a data-bs-toggle="collapse" href="#comments-{{ post.id }}" class="link-secondary" role="button"> 
+                        View {{ post.comments|length }} Comments
+                    </a> 
+                {% else %}
+                    <small class="text-muted"> No Comments </small>
+                {% endif%}
+            </p>
+            
+            <!-- Form for comments -->
+            <form action="{{ url_for('post.create_comment', post_id = post.id) }}" method="post" class="form-group" novalidate>
+                {{ form.hidden_tag() }}
+            <div class="d-flex m-0">
+                {% if form.comment.errors %}
+                    {{ form.comment(class="form-control is-invalid", placeholder="Comment Something...")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.comment.errors %}
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.comment(class="form-control", placeholder="Comment Something...")}}
+            
+                {% endif %}
+            </form>
+            {{ form.submit(class="btn btn-primary") }}
+            </div>
+            
+        </div>
+    </div>
+    <br />
+    {% endfor %}
+
+    <!-- Pagination links -->
+    {% block footer %} {% endblock footer %}
+</div>
+
+{% endblock content %}
