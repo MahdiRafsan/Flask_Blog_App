@@ -13,10 +13,10 @@ This is a simple web application with blog features built in Python using Flask.
 Type the following in the terminal ``` py -m venv env```
 
 #### Activating the virtual environment from command prompt ####
-``` .\env\Scripts\activate```
+``` ./env/Scripts/activate```
 
 #### Activating the virtual environment from powershell ####
-``` .\env\Scripts\Activate.ps1```
+``` ./env/Scripts/Activate.ps1```
 
 #### Installing the required packages and dependencies ####
 Type the following in the terminal or powershell ``` pip install -r requirements.txt```
