@@ -10,38 +10,38 @@ This is a simple web application with blog features built in Python using Flask.
 # Installations and Instructions #
 ## For Windows ##
 #### Creating a virtual environment ####
-Type the following in the terminal ``` py -m venv env```
+Type the following in the terminal `py -m venv env`
 
 #### Activating the virtual environment from command prompt ####
-``` ./env/Scripts/activate```
+`.\env\Scripts\activate`
 
 #### Activating the virtual environment from powershell ####
-``` ./env/Scripts/Activate.ps1```
+`./env/Scripts/Activate.ps1`
 
 #### Installing the required packages and dependencies ####
-Type the following in the terminal or powershell ``` pip install -r requirements.txt```
+Type the following in the terminal or powershell `pip install -r requirements.txt`
 #### Running the project ####
-```python main.py```
+`python main.py`
 
-Navigate to ```http://localhost:5000/```
+Navigate to `http://localhost:5000/`
 
 #### Deactivating the virtual environment ####
-Simply type ```deactivate``` in the terminal or powershell
+Simply type `deactivate` in the terminal or powershell
 
 ## For macOS/Linux ##
 #### Creating a virtual environment ####
-Type the following in the shell ```python3 -m venv env```
+Type the following in the shell `python3 -m venv env`
 
 #### Activating the virtual environment ####
-```source env/bin/activate```
+`source env/bin/activate`
 
 #### Installing the required packages and dependencies ####
-```python3 -m pip install -r requirements.txt```
+`python3 -m pip install -r requirements.txt`
 
 #### Running the project ####
-```python main.py``` 
+`python main.py`
 
-Navigate to ```http://localhost:5000/```
+Navigate to `http://localhost:5000/`
 
 #### Deactivating the virtual environment ####
-```deactivate```
+`deactivate`
